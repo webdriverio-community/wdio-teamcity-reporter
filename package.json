@@ -1,0 +1,25 @@
+{
+  "name": "wdio-teamcity-reporter",
+  "version": "0.0.1",
+  "description": "Teamcity reporter for WebdriverIO",
+  "main": "index.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sullenor/wdio-teamcity-reporter.git"
+  },
+  "keywords": [
+    "teamcity"
+  ],
+  "author": "Alexey Litvinov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sullenor/wdio-teamcity-reporter/issues"
+  },
+  "homepage": "https://github.com/sullenor/wdio-teamcity-reporter#readme"
+}
