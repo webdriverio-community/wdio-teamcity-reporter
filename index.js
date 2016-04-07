@@ -24,65 +24,65 @@ function WdioTeamcityReporter() {
   });
 
   /**
-   * @param  {object}   suite
-   * @param  {string}   suite.type
-   * @param  {string}   suite.title
-   * @param  {string}   suite.parent
-   * @param  {boolean}  suite.pending
-   * @param  {string}   suite.file
-   * @param  {string[]} suite.specs
-   * @param  {string}   suite.event
-   * @param  {object}   suite.runner
-   * @param  {string}   suite.specHash
+   * @param  {object}   test
+   * @param  {string}   test.type
+   * @param  {string}   test.title
+   * @param  {string}   test.parent
+   * @param  {boolean}  test.pending
+   * @param  {string}   test.file
+   * @param  {string[]} test.specs
+   * @param  {string}   test.event
+   * @param  {object}   test.runner
+   * @param  {string}   test.specHash
    */
   this.on('test:start', test => {
     console.log(`##teamcity[testStarted name='${escape(test.title)}' captureStandardOutput='true']"`);
   });
 
   /**
-   * @param  {object}   suite
-   * @param  {string}   suite.type
-   * @param  {string}   suite.title
-   * @param  {string}   suite.parent
-   * @param  {boolean}  suite.pending
-   * @param  {string}   suite.file
-   * @param  {string[]} suite.specs
-   * @param  {string}   suite.event
-   * @param  {object}   suite.runner
-   * @param  {string}   suite.specHash
+   * @param  {object}   test
+   * @param  {string}   test.type
+   * @param  {string}   test.title
+   * @param  {string}   test.parent
+   * @param  {boolean}  test.pending
+   * @param  {string}   test.file
+   * @param  {string[]} test.specs
+   * @param  {string}   test.event
+   * @param  {object}   test.runner
+   * @param  {string}   test.specHash
    */
   this.on('test:end', test => {
     console.log(`##teamcity[testFinished name='${escape(test.title)}' duration='']`);
   });
 
   /**
-   * @param  {object}   suite
-   * @param  {string}   suite.type
-   * @param  {object}   suite.err
-   * @param  {string}   suite.title
-   * @param  {string}   suite.parent
-   * @param  {boolean}  suite.pending
-   * @param  {string}   suite.file
-   * @param  {string[]} suite.specs
-   * @param  {string}   suite.event
-   * @param  {object}   suite.runner
-   * @param  {string}   suite.specHash
+   * @param  {object}   test
+   * @param  {string}   test.type
+   * @param  {object}   test.err
+   * @param  {string}   test.title
+   * @param  {string}   test.parent
+   * @param  {boolean}  test.pending
+   * @param  {string}   test.file
+   * @param  {string[]} test.specs
+   * @param  {string}   test.event
+   * @param  {object}   test.runner
+   * @param  {string}   test.specHash
    */
   this.on('test:fail', test => {
-    console.log(`##teamcity[testFailed name='${escape(test.title)}' message='${escape(suite.err.message)}' captureStandardOutput='true' details='${escape(suite.err.stack)}']`);
+    console.log(`##teamcity[testFailed name='${escape(test.title)}' message='${escape(test.err.message)}' captureStandardOutput='true' details='${escape(test.err.stack)}']`);
   });
 
   /**
-   * @param  {object}   suite
-   * @param  {string}   suite.type
-   * @param  {string}   suite.title
-   * @param  {string}   suite.parent
-   * @param  {boolean}  suite.pending
-   * @param  {string}   suite.file
-   * @param  {string[]} suite.specs
-   * @param  {string}   suite.event
-   * @param  {object}   suite.runner
-   * @param  {string}   suite.specHash
+   * @param  {object}   test
+   * @param  {string}   test.type
+   * @param  {string}   test.title
+   * @param  {string}   test.parent
+   * @param  {boolean}  test.pending
+   * @param  {string}   test.file
+   * @param  {string[]} test.specs
+   * @param  {string}   test.event
+   * @param  {object}   test.runner
+   * @param  {string}   test.specHash
    */
   this.on('test:pending', test => {
     console.log(`##teamcity[testIgnored name='${escape(test.title)}' message='pending']`);
