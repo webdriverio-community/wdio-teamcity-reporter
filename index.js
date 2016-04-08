@@ -57,7 +57,7 @@ function WdioTeamcityReporter() {
    * @param  {string}   test.specHash
    */
   this.on('test:end', test => {
-    o(`##teamcity[testFinished name='${escape(test.title)}' duration='']`);
+    o(`##teamcity[testFinished name='${escape(test.title)}']`);
   });
 
   /**
@@ -74,7 +74,7 @@ function WdioTeamcityReporter() {
    * @param  {string}   test.specHash
    */
   this.on('test:fail', test => {
-    o(`##teamcity[testFailed name='${escape(test.title)}' message='${escape(test.err.message)}' captureStandardOutput='true' details='${escape(test.err.stack)}']`);
+    o(`##teamcity[testFailed name='${escape(test.title)}' message='${escape(test.err.message)}' details='${escape(test.err.stack)}']`);
   });
 
   /**
@@ -106,7 +106,7 @@ function WdioTeamcityReporter() {
    * @param  {string}   suite.specHash
    */
   this.on('suite:end', suite => {
-    o(`##teamcity[testSuiteFinished name='${escape(suite.title)}' duration='']`);
+    o(`##teamcity[testSuiteFinished name='${escape(suite.title)}']`);
   });
 }
 
