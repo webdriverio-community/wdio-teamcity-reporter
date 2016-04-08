@@ -1,5 +1,10 @@
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
+const EOL = require('os').EOL;
+
+const o = typeof window === 'undefined'
+  ? msg => process.stdout.write(`${msg}${EOL}`)
+  : msg => console.log(msg);
 
 /**
  * http://webdriver.io/guide/reporters/customreporter.html
@@ -20,7 +25,7 @@ function WdioTeamcityReporter() {
    * @param  {object}   suite.runner
    */
   this.on('suite:start', suite => {
-    console.log(`##teamcity[testSuiteStarted name='${escape(suite.title)}']`);
+    o(`##teamcity[testSuiteStarted name='${escape(suite.title)}']`);
   });
 
   /**
@@ -36,7 +41,7 @@ function WdioTeamcityReporter() {
    * @param  {string}   test.specHash
    */
   this.on('test:start', test => {
-    console.log(`##teamcity[testStarted name='${escape(test.title)}' captureStandardOutput='true']"`);
+    o(`##teamcity[testStarted name='${escape(test.title)}' captureStandardOutput='true']"`);
   });
 
   /**
@@ -52,7 +57,7 @@ function WdioTeamcityReporter() {
    * @param  {string}   test.specHash
    */
   this.on('test:end', test => {
-    console.log(`##teamcity[testFinished name='${escape(test.title)}' duration='']`);
+    o(`##teamcity[testFinished name='${escape(test.title)}' duration='']`);
   });
 
   /**
@@ -69,7 +74,7 @@ function WdioTeamcityReporter() {
    * @param  {string}   test.specHash
    */
   this.on('test:fail', test => {
-    console.log(`##teamcity[testFailed name='${escape(test.title)}' message='${escape(test.err.message)}' captureStandardOutput='true' details='${escape(test.err.stack)}']`);
+    o(`##teamcity[testFailed name='${escape(test.title)}' message='${escape(test.err.message)}' captureStandardOutput='true' details='${escape(test.err.stack)}']`);
   });
 
   /**
@@ -85,7 +90,7 @@ function WdioTeamcityReporter() {
    * @param  {string}   test.specHash
    */
   this.on('test:pending', test => {
-    console.log(`##teamcity[testIgnored name='${escape(test.title)}' message='pending']`);
+    o(`##teamcity[testIgnored name='${escape(test.title)}' message='pending']`);
   });
 
   /**
@@ -101,7 +106,7 @@ function WdioTeamcityReporter() {
    * @param  {string}   suite.specHash
    */
   this.on('suite:end', suite => {
-    console.log(`##teamcity[testSuiteFinished name='${escape(suite.title)}' duration='']`);
+    o(`##teamcity[testSuiteFinished name='${escape(suite.title)}' duration='']`);
   });
 }
 
