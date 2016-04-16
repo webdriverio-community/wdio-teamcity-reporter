@@ -1,8 +1,12 @@
 'use strict';
 
+const p = require('promisify-api');
+const dirname = require('path').dirname;
 const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
-const EOL = require('os').EOL;
+const mkdir = p(require('mkdirp'));
+const resolve = require('path').resolve;
+const writeFile = p(require('fs').writeFile);
 
 const o = msg => console.log(msg);
 
@@ -57,6 +61,27 @@ WdioTeamcityReporter.prototype.enableRealTimeOutput = function () {
   };
 
   Object.keys(handlers).forEach(event => this.on(event, handlers[event]));
+};
+
+/**
+ * Small example:
+ *
+ * <build number="1.0.{build.number}">
+ *    <statusInfo status="FAILURE"> <!-- or SUCCESS -->
+ *       <text action="append"> fitnesse: 45</text>
+ *       <text action="append"> coverage: 54%</text>
+ *    </statusInfo>
+ * </build>
+ */
+WdioTeamcityReporter.prototype.enableXmlReport = function () {
+  const filepath = resolve('teamcity-info.xml');
+
+  this.on('end', () => {
+    const report = '';
+    mkdir(dirname(filepath))
+      .then(_ => writeFile(filepath, report, 'utf8'))
+      .catch(er => throw er);
+  });
 };
 
 module.exports = WdioTeamcityReporter;
