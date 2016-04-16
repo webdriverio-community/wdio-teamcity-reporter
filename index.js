@@ -2,9 +2,7 @@ const inherits = require('util').inherits;
 const EventEmitter = require('events').EventEmitter;
 const EOL = require('os').EOL;
 
-const o = typeof window === 'undefined'
-  ? msg => process.stdout.write(`${msg}${EOL}`)
-  : msg => console.log(msg);
+const o = msg => console.log(msg);
 
 /**
  * http://webdriver.io/guide/reporters/customreporter.html
