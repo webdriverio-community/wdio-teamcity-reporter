@@ -1,5 +1,6 @@
 .babelrc
 .editorconfig
+.eslintrc.json
 .gitignore
 .npmignore
 .travis.yml
