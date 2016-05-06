@@ -1,5 +1,5 @@
-import test from 'ava';
-import Reporter from './index';
+const test = require('tape');
+const Reporter = require('./index');
 
 const events = [
   'start',
@@ -15,11 +15,7 @@ const events = [
   'end',
 ];
 
-var reporter;
-
-test.before(t => {
-  reporter = new Reporter();
-});
+var reporter = new Reporter();
 
 events.forEach(event => test(event, t => {
   const data = {
@@ -38,4 +34,5 @@ events.forEach(event => test(event, t => {
   }
 
   reporter.emit(event, data);
+  t.end();
 }));
