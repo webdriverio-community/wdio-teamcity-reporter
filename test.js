@@ -27,6 +27,7 @@ events.forEach(event => test(event, t => {
     specs: [''],
     event: event,
     runner: {},
+    specHash: '98d5f98abe0e1d6b68d654ead0a9ce77',
   };
 
   if (event.indexOf('fail') > -1) {

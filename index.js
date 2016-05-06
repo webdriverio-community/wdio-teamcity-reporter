@@ -44,15 +44,23 @@ inherits(WdioTeamcityReporter, EventEmitter);
  * * @param  {string}   test.event
  * * @param  {object}   test.runner
  * * @param  {string}   test.specHash
+ *
+ * In order to distinguish separate processes running in parallel,
+ * each message should be signed with the unique identifier,
+ * which should be provided through the flowId attribute.
+ * So I use specHash for this.
+ *
+ * @see https://github.com/webdriverio/webdriverio/blob/16c9dcc7334e1015c48e07f113f00a6b63d31d7f/lib/utils/ReporterStats.js#L119-L127
+ * @see https://confluence.jetbrains.com/display/TCD65/Build+Script+Interaction+with+TeamCity
  */
 WdioTeamcityReporter.prototype.enableRealTimeOutput = function () {
   const handlers = {
-    'suite:start': suite => o(`##teamcity[testSuiteStarted name='${escape(suite.title)}']`),
-    'test:start': test => o(`##teamcity[testStarted name='${escape(test.title)}' captureStandardOutput='true']"`),
-    'test:end': test => o(`##teamcity[testFinished name='${escape(test.title)}']`),
-    'test:fail': test => o(`##teamcity[testFailed name='${escape(test.title)}' message='${escape(test.err.message)}' details='${escape(test.err.stack)}']`),
-    'test:pending': test => o(`##teamcity[testIgnored name='${escape(test.title)}' message='pending']`),
-    'suite:end': suite => o(`##teamcity[testSuiteFinished name='${escape(suite.title)}']`),
+    'suite:start': suite => o(`##teamcity[testSuiteStarted name='${escape(suite.title)}' flowId='${escape(suite.specHash)}']`),
+    'test:start': test => o(`##teamcity[testStarted name='${escape(test.title)}' captureStandardOutput='true' flowId='${escape(test.specHash)}']"`),
+    'test:end': test => o(`##teamcity[testFinished name='${escape(test.title)}'] flowId='${escape(test.specHash)}'`),
+    'test:fail': test => o(`##teamcity[testFailed name='${escape(test.title)}' message='${escape(test.err.message)}' details='${escape(test.err.stack)}' flowId='${escape(test.specHash)}']`),
+    'test:pending': test => o(`##teamcity[testIgnored name='${escape(test.title)}' message='pending'] flowId='${escape(test.specHash)}'`),
+    'suite:end': suite => o(`##teamcity[testSuiteFinished name='${escape(suite.title)}'] flowId='${escape(suite.specHash)}'`),
   };
 
   Object.keys(handlers).forEach(event => this.on(event, handlers[event]));
