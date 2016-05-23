@@ -12,7 +12,7 @@
     "lint": "eslint lib/*.js test/**/*.js *.js",
     "prepublish": "in-publish && npm run -s compile || in-install",
     "publish": "in-publish && npm run -s cleanup || in-install",
-    "test": "",
+    "test": "tape --require babel-register test/unit/*.js",
     "unit": "tape test/unit/*.js",
     "wdio": "wdio test/integration/wdio.conf.js"
   },
@@ -33,6 +33,8 @@
     "lodash": "^4.13.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-register": "^6.9.0",
     "eslint": "^2.10.2",
     "in-publish": "^2.0.0",
     "tape": "^4.5.1",
