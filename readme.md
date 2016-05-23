@@ -21,6 +21,12 @@ Add reporter in your [wdio.conf.js](http://webdriver.io/guide/testrunner/configu
 exports.config = {
   // ...
   reporters: ['teamcity'],
+  reporterOptions: {
+    captureStandardOutput: true, // false by default
+    flowId: false, // optional, true by default
+    message: '[title]', // possibility to provide particular format for the name property.
+    // Possible values: [browser] [title] [hash] or its combination
+  },
   // ...
 }
 ```
