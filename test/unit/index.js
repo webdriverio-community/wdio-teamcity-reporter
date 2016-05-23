@@ -1,5 +1,7 @@
+'use strict';
+
+const Reporter = require('../../');
 const test = require('tape');
-const Reporter = require('./index');
 
 const events = [
   'start',
