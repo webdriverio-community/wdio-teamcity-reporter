@@ -29,7 +29,7 @@ exports.config = {
   reporters: [teamcity],
 
   reporterOptions: {
-    flow: false,
+    flowId: false,
     message: '[browser] [title]', // [browser] [title] [hash]
     outputDir: './',
   },

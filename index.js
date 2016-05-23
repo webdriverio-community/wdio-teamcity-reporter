@@ -1,7 +1,7 @@
 'use strict';
 
 const { EventEmitter } = require('events');
-const { events, formatterForEvent } = require('./lib/message');
+const { buildFormatter, events } = require('./lib/message');
 const { flow } = require('lodash');
 const { inherits } = require('util');
 
@@ -25,7 +25,7 @@ function WdioTeamcityReporter(baseReporter, wdioConf, reporterOptions = {}) {
       : true,
     name: typeof reporterOptions.message === 'string'
       ? reporterOptions.message
-      : '[title]'
+      : '[title]',
   };
 
   this.enableRealTimeOutput(opts);
@@ -34,5 +34,5 @@ function WdioTeamcityReporter(baseReporter, wdioConf, reporterOptions = {}) {
 inherits(WdioTeamcityReporter, EventEmitter);
 
 WdioTeamcityReporter.prototype.enableRealTimeOutput = function (opts) {
-  events.forEach(event => this.on(event, flow(formatterForEvent(event, opts), console.log)));
+  events.forEach(event => this.on(event, flow(buildFormatter(event, opts), console.log)));
 };
