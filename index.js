@@ -36,5 +36,15 @@ function WdioTeamcityReporter(baseReporter, wdioConf, reporterOptions = {}) {
 inherits(WdioTeamcityReporter, EventEmitter);
 
 WdioTeamcityReporter.prototype.enableRealTimeOutput = function (opts) {
-  events.forEach(event => this.on(event, flow(buildFormatter(event, opts), console.log)));
+  events.forEach(event => this.on(event, flow(buildFormatter(event, opts), output)));
 };
+
+/**
+ * @param  {string} msg
+ * @return {string}
+ */
+function output(msg) {
+  if (msg) {
+    console.log(msg);
+  }
+}

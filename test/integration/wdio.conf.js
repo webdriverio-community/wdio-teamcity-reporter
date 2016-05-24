@@ -30,7 +30,7 @@ exports.config = {
 
   reporterOptions: {
     flowId: false,
-    message: '[browser] [title]', // [browser] [title] [hash]
+    message: '[browser]/[title]', // [browser] [title] [hash]
   },
 
   mochaOpts: {
