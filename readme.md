@@ -22,14 +22,21 @@ exports.config = {
   // ...
   reporters: ['teamcity'],
   reporterOptions: {
-    captureStandardOutput: true, // false by default
-    flowId: false, // optional, true by default
-    message: '[title]', // possibility to provide particular format for the name property.
-    // Possible values: [browser] [title] [hash] or its combination
+    captureStandardOutput: false, // optional
+    flowId: true, // optional
+    message: '[title]', // optional
   },
   // ...
 }
 ```
+
+### reporterOptions
+
+`reporterOptions` provide you a possibility to adjust reporter functionality.
+
+- `captureStandardOutput (boolean)` — if `true`, all the standard output (and standard error) messages received between `testStarted` and `testFinished` messages will be considered test output. The default value is `false` and assumes usage of testStdOut and testStdErr service messages to report the test output. Default `false`.
+- `flowId (boolean)` — if `true`, `flowId` property will be added to all messages. Flow tracking is necessary for example to distinguish separate processes running in parallel. Default `true`.
+- `message (string)` — possibility to provide particular format for the name property. Possible keys: `[browser]`, `[title]`, `[hash]`. Example, `[browser] [title]`. Default `[title]`.
 
 
 ## Links
