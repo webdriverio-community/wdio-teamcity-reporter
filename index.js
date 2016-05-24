@@ -9,10 +9,12 @@ module.exports = WdioTeamcityReporter;
 module.exports.reporterName = 'teamcity';
 
 /**
- * @param {object} baseReporter
- * @param {object} wdioConf
- * @param {object} reporterOptions
- * @param {string} reporterOptions.msg
+ * @param {object}  baseReporter
+ * @param {object}  wdioConf
+ * @param {object}  reporterOptions
+ * @param {boolean} reporterOptions.captureStandardOutput
+ * @param {boolean} reporterOptions.flowId
+ * @param {string}  reporterOptions.message
  * @return {wdioTeamcityReporter}
  */
 function WdioTeamcityReporter(baseReporter, wdioConf, reporterOptions = {}) {
