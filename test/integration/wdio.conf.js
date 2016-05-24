@@ -31,7 +31,6 @@ exports.config = {
   reporterOptions: {
     flowId: false,
     message: '[browser] [title]', // [browser] [title] [hash]
-    outputDir: './',
   },
 
   mochaOpts: {
