@@ -1,6 +1,6 @@
 {
   "name": "wdio-teamcity-reporter",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "WebdriverIO Teamcity reporter",
   "main": "index.js",
   "engines": {
@@ -30,16 +30,16 @@
   },
   "homepage": "https://github.com/sullenor/wdio-teamcity-reporter#readme",
   "dependencies": {
-    "lodash": "^4.13.0"
+    "lodash": "^4.15.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.9.0",
-    "babel-preset-es2015": "^6.9.0",
-    "babel-register": "^6.9.0",
-    "eslint": "^2.10.2",
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.13.2",
+    "babel-register": "^6.11.6",
+    "eslint": "^2.13.1",
     "in-publish": "^2.0.0",
-    "tape": "^4.5.1",
+    "tape": "^4.6.0",
     "wdio-mocha-framework": "^0.2.13",
-    "webdriverio": "^4.0.7"
+    "webdriverio": "^4.2.5"
   }
 }
