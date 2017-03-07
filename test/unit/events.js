@@ -1,7 +1,8 @@
 'use strict';
 
 const { buildFormatter } = require('../../lib/message');
-const suite = require('./fixture/suite');
+const mockSuite = require('./fixture/suite');
+const mockReporterContext = require('./fixture/reporter-context');
 const test = require('tape');
 
 const opts = {
@@ -11,29 +12,31 @@ const opts = {
 };
 
 test('formatter for events', t => {
+  const reporter = mockReporterContext();
+
   t.test('suite:start', a => {
-    const msg = buildFormatter('suite:start', opts)(suite('suite:start'));
+    const msg = buildFormatter('suite:start', opts).call(reporter, mockSuite('suite:start'));
 
     a.plan(1);
     assertMsg(a, '##teamcity[testSuiteStarted ', msg);
   });
 
   t.test('test:start', a => {
-    const msg = buildFormatter('test:start', opts)(suite('test:start'));
+    const msg = buildFormatter('test:start', opts).call(reporter, mockSuite('test:start'));
 
     a.plan(1);
     assertMsg(a, '##teamcity[testStarted ', msg);
   });
 
   t.test('test:end', a => {
-    const msg = buildFormatter('test:end', opts)(suite('test:end'));
+    const msg = buildFormatter('test:end', opts).call(reporter, mockSuite('test:end'));
 
     a.plan(1);
     assertMsg(a, '##teamcity[testFinished ', msg);
   });
 
   t.test('suite:end', a => {
-    const msg = buildFormatter('suite:end', opts)(suite('suite:end'));
+    const msg = buildFormatter('suite:end', opts).call(reporter, mockSuite('suite:end'));
 
     a.plan(1);
     assertMsg(a, '##teamcity[testSuiteFinished ', msg);

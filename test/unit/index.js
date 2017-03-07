@@ -1,6 +1,7 @@
 'use strict';
 
 const Reporter = require('../../');
+const mockReporterContext = require('./fixture/reporter-context');
 const test = require('tape');
 
 const events = [
@@ -17,10 +18,12 @@ const events = [
   'end',
 ];
 
-var reporter = new Reporter();
+const mockedContext = mockReporterContext();
+const reporter = new Reporter(mockedContext.baseReporter);
 
 events.forEach(event => test(event, t => {
   const data = {
+    cid: '0-0',
     type: event,
     title: `title for ${event}`,
     parent: '',

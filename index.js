@@ -18,6 +18,8 @@ module.exports.reporterName = 'teamcity';
  * @return {wdioTeamcityReporter}
  */
 function WdioTeamcityReporter(baseReporter, wdioConf, reporterOptions = {}) {
+  this.baseReporter = baseReporter;
+
   const opts = {
     captureStandardOutput: typeof reporterOptions.captureStandardOutput === 'boolean'
       ? reporterOptions.captureStandardOutput
