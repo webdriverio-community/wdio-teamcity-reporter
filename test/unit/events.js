@@ -1,7 +1,6 @@
 'use strict';
 
 const { buildFormatter } = require('../../lib/message');
-const { includes } = require('lodash');
 const suite = require('./fixture/suite');
 const test = require('tape');
 
