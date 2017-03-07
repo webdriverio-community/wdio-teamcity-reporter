@@ -2,6 +2,7 @@
 
 module.exports = function suite(eventName) {
   return {
+    cid: '0-0',
     type: eventName,
     title: `title for ${eventName}`,
     parent: '',
