@@ -1,25 +1,31 @@
 'use strict';
 
 const Reporter = require('../../');
-const mockReporterContext = require('./fixture/reporter-context');
 const test = require('tape');
 
 const events = [
-  'start',
-  'suite:start',
-  'hook:start',
-  'hook:end',
-  'test:start',
-  'test:end',
-  'test:pass',
-  'test:fail',
-  'test:pending',
-  'suite:end',
-  'end',
+  'onRunnerStart',
+  'onBeforeCommand',
+  'onAfterCommand',
+  'onScreenshot',
+  'onSuiteStart',
+  'onHookStart',
+  'onHookEnd',
+  'onTestStart',
+  'onTestPass',
+  'onTestFail',
+  'onTestSkip',
+  'onTestEnd',
+  'onSuiteEnd',
+  'onRunnerEnd',
 ];
 
-const mockedContext = mockReporterContext();
-const reporter = new Reporter(mockedContext.baseReporter);
+const reporter = new Reporter({});
+reporter.outputStream = {
+  write(msg) {
+    console.log(msg);
+  },
+};
 
 events.forEach(event => test(event, t => {
   const data = {
@@ -39,6 +45,6 @@ events.forEach(event => test(event, t => {
     data.err = new Error('artificial error');
   }
 
-  reporter.emit(event, data);
+  reporter[event](data);
   t.end();
 }));

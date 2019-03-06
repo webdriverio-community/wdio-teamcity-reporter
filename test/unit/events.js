@@ -14,29 +14,29 @@ const opts = {
 test('formatter for events', t => {
   const reporter = mockReporterContext();
 
-  t.test('suite:start', a => {
-    const msg = buildFormatter('suite:start', opts).call(reporter, mockSuite('suite:start'));
+  t.test('onSuiteStart', a => {
+    const msg = buildFormatter('onSuiteStart', opts).call(reporter, mockSuite('onSuiteStart'));
 
     a.plan(1);
     assertMsg(a, '##teamcity[testSuiteStarted ', msg);
   });
 
-  t.test('test:start', a => {
-    const msg = buildFormatter('test:start', opts).call(reporter, mockSuite('test:start'));
+  t.test('onTestStart', a => {
+    const msg = buildFormatter('onTestStart', opts).call(reporter, mockSuite('onTestStart'));
 
     a.plan(1);
     assertMsg(a, '##teamcity[testStarted ', msg);
   });
 
-  t.test('test:end', a => {
-    const msg = buildFormatter('test:end', opts).call(reporter, mockSuite('test:end'));
+  t.test('onTestEnd', a => {
+    const msg = buildFormatter('onTestEnd', opts).call(reporter, mockSuite('onTestEnd'));
 
     a.plan(1);
     assertMsg(a, '##teamcity[testFinished ', msg);
   });
 
-  t.test('suite:end', a => {
-    const msg = buildFormatter('suite:end', opts).call(reporter, mockSuite('suite:end'));
+  t.test('onSuiteEnd', a => {
+    const msg = buildFormatter('onSuiteEnd', opts).call(reporter, mockSuite('onSuiteEnd'));
 
     a.plan(1);
     assertMsg(a, '##teamcity[testSuiteFinished ', msg);

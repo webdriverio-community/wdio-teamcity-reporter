@@ -5,8 +5,6 @@ const teamcity = require('../../');
 exports.config = {
   specs: ['./test/integration/*.js'],
 
-  maxInstances: 2,
-
   capabilities: [{
     maxInstances: 2,
     browserName: 'firefox',
@@ -26,15 +24,15 @@ exports.config = {
 
   framework: 'mocha',
 
-  reporters: [teamcity],
-
-  reporterOptions: {
+  reporters: [[teamcity, {
     flowId: false,
     message: '[browser]/[title]', // [browser] [title] [hash]
-  },
+  }]],
 
   mochaOpts: {
     timeout: 60000,
     ui: 'tdd',
   },
+
+  services: ['selenium-standalone'],
 };
