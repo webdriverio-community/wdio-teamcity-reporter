@@ -40,6 +40,7 @@
     "@wdio/selenium-standalone-service": "^5.7.0",
     "@wdio/sync": "^5.7.0",
     "babel-cli": "^6.11.4",
+    "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.13.2",
     "babel-register": "^6.11.6",
     "eslint": "^2.13.1",
