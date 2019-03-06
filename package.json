@@ -4,7 +4,7 @@
   "description": "WebdriverIO Teamcity reporter",
   "main": "index.js",
   "engines": {
-    "node": ">=0.12"
+    "node": ">=8.11.0"
   },
   "scripts": {
     "cleanup": "git reset --hard",
