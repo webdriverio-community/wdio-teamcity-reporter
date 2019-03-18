@@ -1,6 +1,6 @@
 'use strict';
 
-const teamcity = require('../../');
+const teamcity = require('../../').default;
 
 exports.config = {
   specs: ['./test/integration/*.js'],

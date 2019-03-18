@@ -1,6 +1,6 @@
 'use strict';
 
-const Reporter = require('../../');
+const Reporter = require('../../').default;
 const test = require('tape');
 
 const events = [

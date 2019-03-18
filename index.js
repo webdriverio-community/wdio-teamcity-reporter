@@ -43,5 +43,5 @@ class WdioTeamcityReporter extends WdioReporter {
   }
 }
 
-module.exports = WdioTeamcityReporter;
+module.exports.default = WdioTeamcityReporter;
 module.exports.reporterName = 'teamcity';
