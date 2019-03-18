@@ -42,7 +42,7 @@ events.forEach(event => test(event, t => {
   };
 
   if (event.indexOf('fail') > -1) {
-    data.err = new Error('artificial error');
+    data.error = new Error('artificial error');
   }
 
   reporter[event](data);
