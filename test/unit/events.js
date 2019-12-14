@@ -44,6 +44,6 @@ test('formatter for events', t => {
 });
 
 function assertMsg(util, expectation, result) {
-  util.ok(result.indexOf(expectation) === 0,
+  util.ok(result.startsWith(expectation),
     `message should start from \`${expectation}\` instead got \`${result}\``);
 }

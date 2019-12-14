@@ -10,6 +10,6 @@ suite('simple exception', () => {
   test.skip('pending test', () => {});
 
   test('artificial error', () => {
-    assert.equal(browser.getAttribute('body', 'non-existing-attribute'), 'guess');
+    assert.equal(browser.$('body').getAttribute('non-existing-attribute'), null);
   });
 });

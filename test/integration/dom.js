@@ -8,6 +8,6 @@ suite('simple assertions for the DOM', () => {
   });
 
   test('does body exists', () => {
-    assert.equal(browser.getAttribute('body', 'class'), 'hp vasq');
+    assert.equal(browser.$('body').getAttribute('class'), 'hp vasq');
   });
 });
