@@ -42,6 +42,7 @@ exports.config = {
 ## Links
 
 - Reference to the Teamcity documentation about reporting messages: https://confluence.jetbrains.com/display/TCD65/Build+Script+Interaction+with+TeamCity
+- Teamcity testdrive: https://blog.jetbrains.com/teamcity/2019/08/getting-started-with-teamcity-testdrive/
 
 
 ## License

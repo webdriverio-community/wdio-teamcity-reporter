@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-const teamcity = require('../../').default;
+const teamcity = require('../../').default
 
 exports.config = {
   specs: ['./test/integration/*.js'],
 
   capabilities: [{
     maxInstances: 2,
-    browserName: 'chrome',
+    browserName: 'chrome'
   }],
 
   sync: true,
@@ -25,14 +25,14 @@ exports.config = {
   framework: 'mocha',
 
   reporters: [[teamcity, {
-    flowId: false,
-    message: '[browser]/[title]', // [browser] [title] [hash]
+    flowId: true,
+    message: '[browser]/[title]' // [browser] [title] [hash]
   }]],
 
   mochaOpts: {
     timeout: 60000,
-    ui: 'tdd',
+    ui: 'tdd'
   },
 
-  services: ['selenium-standalone'],
-};
+  services: ['selenium-standalone']
+}
