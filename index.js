@@ -98,7 +98,7 @@ class WdioTeamcityReporter extends WdioReporter {
    */
   onTestEnd (testStats) {
     if (testStats.state === 'skipped') return
-    this._m('##teamcity[testFinished name=\'{name}\' duration=\'{ms}\' flowId=\'{id}\']', testStats)
+    this._m('##teamcity[testFinished name=\'{name}\' duration=\'{ms}\' flowId=\'{id}\' state=\'{state}\']', testStats)
   }
 
   /**
@@ -144,6 +144,8 @@ class WdioTeamcityReporter extends WdioReporter {
           if (name.includes('[browser]')) name = name.replace(/\[browser\]/g, this._v())
           if (name.includes('[title]')) name = name.replace(/\[title\]/g, stats.title)
           return name
+        case '{state}':
+          return stats.state
         case '{error}':
           return stats.error.message
         case '{stack}':
