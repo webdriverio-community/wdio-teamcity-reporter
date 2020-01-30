@@ -26,7 +26,7 @@ exports.config = {
 
   reporters: [[teamcity, {
     flowId: true,
-    message: '[browser]/[title]' // [browser] [title] [hash]
+    message: '[browser]/[title]' // [browser] [title]
   }]],
 
   mochaOpts: {

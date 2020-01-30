@@ -140,7 +140,10 @@ class WdioTeamcityReporter extends WdioReporter {
         case '{ms}':
           return stats._duration
         case '{name}':
-          return stats.title
+          var name = this.options.message
+          if (name.includes('[browser]')) name = name.replace(/\[browser\]/g, this._v())
+          if (name.includes('[title]')) name = name.replace(/\[title\]/g, stats.title)
+          return name
         case '{error}':
           return stats.error.message
         case '{stack}':
@@ -154,6 +157,11 @@ class WdioTeamcityReporter extends WdioReporter {
       WdioTeamcityReporter.escape(fragment(m)))
 
     this.write(m + '\n')
+  }
+
+  _v () {
+    const { browserName, version } = this.runnerStat.capabilities
+    return `${browserName} ${version}`
   }
 }
 
