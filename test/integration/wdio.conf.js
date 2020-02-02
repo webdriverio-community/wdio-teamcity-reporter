@@ -18,6 +18,8 @@ exports.config = {
 
   screenshotPath: 'shots',
 
+  specFileRetries: 1,
+
   waitforTimeout: 10000,
 
   connectionRetryTimeout: 30000,
@@ -25,8 +27,9 @@ exports.config = {
   framework: 'mocha',
 
   reporters: [[teamcity, {
+    captureStandardOutput: true,
     flowId: true,
-    message: '[browser]/[title]' // [browser] [title]
+    message: '[browser] / [title]' // [browser] [title]
   }]],
 
   mochaOpts: {

@@ -56,6 +56,10 @@ class WdioTeamcityReporter extends WdioReporter {
     return typeof value === 'boolean' ? value : fallback
   }
 
+  static number (value, fallback) {
+    return typeof value === 'number' ? value : fallback
+  }
+
   static string (value, fallback) {
     return typeof value === 'string' ? value : fallback
   }
@@ -105,7 +109,15 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats} testStats
    */
   onTestFail (testStats) {
-    this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', testStats)
+    const {escape, number} = WdioTeamcityReporter
+    const specFileRetryAttempts = number(this.runnerStat.config.specFileRetryAttempts, 0)
+    const specFileRetries = number(this.runnerStat.config.specFileRetries, 0)
+    const attempt = escape(`${specFileRetryAttempts}/${specFileRetries}`)
+    this._m(`##teamcity[attemptFailed attempt='${attempt}' name='{name}' message='{error}' details='{stack}' flowId='{id}']`, testStats)
+
+    if (specFileRetryAttempts === specFileRetries) {
+      this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' flowId=\'{id}\']', testStats)
+    }
   }
 
   /**

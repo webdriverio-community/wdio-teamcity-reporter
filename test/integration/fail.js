@@ -11,6 +11,6 @@ suite('simple exception', () => {
   test.skip('pending test', () => {})
 
   test('artificial error', () => {
-    assert.strictEqual(browser.$('body').getAttribute('non-existing-attribute'), null)
+    assert.strictEqual(browser.$('body').getAttribute('non-existing-attribute'), 1)
   })
 })
