@@ -113,7 +113,7 @@ class WdioTeamcityReporter extends WdioReporter {
     const specFileRetryAttempts = number(this.runnerStat.config.specFileRetryAttempts, 0)
     const specFileRetries = number(this.runnerStat.config.specFileRetries, 0)
     const attempt = escape(`${specFileRetryAttempts}/${specFileRetries}`)
-    this._m(`##teamcity[attemptFailed attempt='${attempt}' name='{name}' message='{error}' details='{stack}' flowId='{id}']`, testStats)
+    // this._m(`##teamcity[attemptFailed attempt='${attempt}' name='{name}' message='{error}' details='{stack}' flowId='{id}']`, testStats)
 
     if (specFileRetryAttempts === specFileRetries) {
       this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' flowId=\'{id}\']', testStats)

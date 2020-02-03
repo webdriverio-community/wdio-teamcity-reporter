@@ -28,6 +28,7 @@
   "dependencies": {},
   "devDependencies": {
     "@wdio/cli": "^5.0.0",
+    "@wdio/devtools-service": "^5.16.16",
     "@wdio/local-runner": "^5.7.0",
     "@wdio/mocha-framework": "^5.7.0",
     "@wdio/reporter": "^5.7.0",
