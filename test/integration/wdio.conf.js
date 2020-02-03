@@ -36,7 +36,7 @@ exports.config = {
   framework: 'mocha',
 
   reporters: [[teamcity, {
-    captureStandardOutput: true,
+    captureStandardOutput: false,
     flowId: true,
     message: '[browser] / [title]' // [browser] [title]
   }]],

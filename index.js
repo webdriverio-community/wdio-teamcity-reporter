@@ -1,6 +1,7 @@
 'use strict'
 
 const WdioReporter = require('@wdio/reporter').default
+const assert = require('assert')
 
 /**
  * @typedef {Object} SuiteStats
@@ -77,12 +78,6 @@ class WdioTeamcityReporter extends WdioReporter {
     super(options)
   }
 
-  onRunnerStart () {
-    const r = WdioTeamcityReporter
-    const o = this.options
-    this.write(`##teamcity[reporterParams captureStandardOutput='${r.serialize(o.captureStandardOutput)}' flowId='${r.serialize(o.flowId)}' message='${r.serialize(o.message)}']\n`)
-  }
-
   /**
    * @param {SuiteStats} suiteStats
    */
@@ -109,14 +104,17 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats} testStats
    */
   onTestFail (testStats) {
-    const {escape, number} = WdioTeamcityReporter
+    const { escape, number } = WdioTeamcityReporter
     const specFileRetryAttempts = number(this.runnerStat.config.specFileRetryAttempts, 0)
     const specFileRetries = number(this.runnerStat.config.specFileRetries, 0)
     const attempt = escape(`${specFileRetryAttempts}/${specFileRetries}`)
-    // this._m(`##teamcity[attemptFailed attempt='${attempt}' name='{name}' message='{error}' details='{stack}' flowId='{id}']`, testStats)
 
     if (specFileRetryAttempts === specFileRetries) {
-      this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' flowId=\'{id}\']', testStats)
+      // ##teamcity[testFailed type='comparisonFailure' name='test2' message='failure message' details='message and stack trace' expected='expected value' actual='actual value']
+      this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', testStats)
+    } else {
+      // add name here
+      this._m(`##teamcity[message name='{name}' text='attempt ${attempt} failed: {error}' flowId='{id}']`, testStats)
     }
   }
 
@@ -139,6 +137,8 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats | SuiteStats} stats
    */
   _m (template, stats) {
+    assert(stats != null, '_m(): missing stats argument')
+
     if (!this.options.flowId) {
       template = template.replace(' flowId=\'{id}\'', '')
     }
