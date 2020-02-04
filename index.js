@@ -49,10 +49,6 @@ class WdioTeamcityReporter extends WdioReporter {
       .replace(/'/g, '|\'')
   }
 
-  static serialize (value) {
-    return WdioTeamcityReporter.escape(String(value))
-  }
-
   static bool (value, fallback) {
     return typeof value === 'boolean' ? value : fallback
   }
@@ -97,7 +93,7 @@ class WdioTeamcityReporter extends WdioReporter {
    */
   onTestEnd (testStats) {
     if (testStats.state === 'skipped') return
-    this._m('##teamcity[testFinished name=\'{name}\' duration=\'{ms}\' flowId=\'{id}\' state=\'{state}\']', testStats)
+    this._m('##teamcity[testFinished name=\'{name}\' duration=\'{ms}\' flowId=\'{id}\']', testStats)
   }
 
   /**
@@ -113,7 +109,6 @@ class WdioTeamcityReporter extends WdioReporter {
       // ##teamcity[testFailed type='comparisonFailure' name='test2' message='failure message' details='message and stack trace' expected='expected value' actual='actual value']
       this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', testStats)
     } else {
-      // add name here
       this._m(`##teamcity[message name='{name}' text='attempt ${attempt} failed: {error}' flowId='{id}']`, testStats)
     }
   }
