@@ -1,14 +1,23 @@
-'use strict';
+'use strict'
 
-const teamcity = require('../../').default;
+const teamcity = require('../../').default
+const { TEST_USER, TEST_KEY } = process.env
 
 exports.config = {
   specs: ['./test/integration/*.js'],
 
-  capabilities: [{
-    maxInstances: 2,
-    browserName: 'chrome',
-  }],
+  user: TEST_USER,
+  key: TEST_KEY,
+
+  capabilities: [
+    {
+      maxInstances: 2,
+      browserName: 'chrome',
+      'goog:chromeOptions': {
+        args: ['headless', 'disable-gpu']
+      }
+    }
+  ],
 
   sync: true,
 
@@ -18,6 +27,8 @@ exports.config = {
 
   screenshotPath: 'shots',
 
+  specFileRetries: 1,
+
   waitforTimeout: 10000,
 
   connectionRetryTimeout: 30000,
@@ -25,14 +36,15 @@ exports.config = {
   framework: 'mocha',
 
   reporters: [[teamcity, {
-    flowId: false,
-    message: '[browser]/[title]', // [browser] [title] [hash]
+    captureStandardOutput: false,
+    flowId: true,
+    message: '[browser] / [title]' // [browser] [title]
   }]],
 
   mochaOpts: {
     timeout: 60000,
-    ui: 'tdd',
+    ui: 'tdd'
   },
 
-  services: ['selenium-standalone'],
-};
+  services: ['selenium-standalone']
+}

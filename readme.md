@@ -36,12 +36,13 @@ exports.config = {
 
 - `captureStandardOutput (boolean)` — if `true`, all the standard output (and standard error) messages received between `testStarted` and `testFinished` messages will be considered test output. The default value is `false` and assumes usage of testStdOut and testStdErr service messages to report the test output. Default `false`.
 - `flowId (boolean)` — if `true`, `flowId` property will be added to all messages. Flow tracking is necessary for example to distinguish separate processes running in parallel. Default `true`.
-- `message (string)` — possibility to provide particular format for the name property. Possible keys: `[browser]`, `[title]`, `[hash]`. Example, `[browser] [title]`. Default `[title]`.
+- `message (string)` — possibility to provide particular format for the name property. Possible keys: `[browser]`, `[title]`. Example, `[browser] / [title]`. Default `[title]`.
 
 
 ## Links
 
 - Reference to the Teamcity documentation about reporting messages: https://confluence.jetbrains.com/display/TCD65/Build+Script+Interaction+with+TeamCity
+- Teamcity testdrive: https://blog.jetbrains.com/teamcity/2019/08/getting-started-with-teamcity-testdrive/
 
 
 ## License

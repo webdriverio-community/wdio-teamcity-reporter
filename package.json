@@ -1,6 +1,6 @@
 {
   "name": "wdio-teamcity-reporter",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "WebdriverIO Teamcity reporter",
   "main": "index.js",
   "engines": {
@@ -8,9 +8,8 @@
   },
   "scripts": {
     "cleanup": "git reset --hard",
-    "lint": "eslint lib/*.js test/**/*.js *.js",
-    "test": "tape test/unit/*.js",
-    "wdio": "wdio test/integration/wdio.conf.js"
+    "lint": "standard lib/*.js test/**/*.js *.js",
+    "test": "wdio test/integration/wdio.conf.js"
   },
   "repository": {
     "type": "git",
@@ -25,17 +24,16 @@
     "url": "https://github.com/sullenor/wdio-teamcity-reporter/issues"
   },
   "homepage": "https://github.com/sullenor/wdio-teamcity-reporter#readme",
-  "dependencies": {
-    "lodash": "^4.15.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@wdio/cli": "^5.0.0",
+    "@wdio/devtools-service": "^5.16.16",
     "@wdio/local-runner": "^5.7.0",
     "@wdio/mocha-framework": "^5.7.0",
     "@wdio/reporter": "^5.7.0",
     "@wdio/selenium-standalone-service": "^5.16.10",
     "@wdio/sync": "^5.7.0",
-    "eslint": "^6.7.2",
+    "standard": "^14.3.1",
     "tape": "^4.6.0"
   },
   "peerDependencies": {
