@@ -1,6 +1,6 @@
 {
   "name": "wdio-teamcity-reporter",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "WebdriverIO Teamcity reporter",
   "main": "index.js",
   "engines": {
@@ -37,6 +37,6 @@
     "tape": "^4.6.0"
   },
   "peerDependencies": {
-    "@wdio/cli": "^6.0.0"
+    "@wdio/cli": "^5.0.0"
   }
 }
