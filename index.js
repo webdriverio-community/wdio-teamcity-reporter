@@ -67,7 +67,8 @@ class WdioTeamcityReporter extends WdioReporter {
       captureStandardOutput: r.bool(reporterOptions.captureStandardOutput, false),
       flowId: r.bool(reporterOptions.flowId, true),
       message: r.string(reporterOptions.message, '[title]'),
-      stdout: true
+      stdout: true,
+      writeStream: process.stdout
     }
     const options = Object.assign(reporterOptions, params)
 
