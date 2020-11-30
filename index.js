@@ -132,7 +132,7 @@ class WdioTeamcityReporter extends WdioReporter {
   /**
    * @param {HookStats} hookStats
    */
-  onHookEnd(hookStats) {
+  onHookEnd (hookStats) {
     if (hookStats.state === 'failed') {
       this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', hookStats)
     }
@@ -149,13 +149,13 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {SuiteStats} suiteStats
    */
   onSuiteEnd (suiteStats) {
-    const pendingTests = Object.values(suiteStats.tests).filter(test => test.state === 'pending');
+    const pendingTests = Object.values(suiteStats.tests).filter(test => test.state === 'pending')
     pendingTests.forEach(testStat => {
       testStat.error = testStat.error || {
         message: '',
         stack: ''
       }
-      this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', testStat);
+      this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', testStat)
     })
 
     this._m('##teamcity[testSuiteFinished name=\'{name}\' flowId=\'{id}\']', suiteStats)
