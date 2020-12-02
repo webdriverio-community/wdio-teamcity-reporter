@@ -6,11 +6,6 @@
   "engines": {
     "node": ">=8.11.0"
   },
-  "scripts": {
-    "cleanup": "git reset --hard",
-    "lint": "standard lib/*.js test/**/*.js *.js",
-    "test": "wdio test/integration/wdio.conf.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sullenor/wdio-teamcity-reporter.git"
@@ -26,17 +21,22 @@
   "homepage": "https://github.com/sullenor/wdio-teamcity-reporter#readme",
   "dependencies": {},
   "devDependencies": {
-    "@wdio/cli": "^6.1.20",
-    "@wdio/devtools-service": "^6.1.20",
-    "@wdio/local-runner": "^6.1.20",
-    "@wdio/mocha-framework": "^6.1.19",
-    "@wdio/reporter": "^6.1.14",
-    "@wdio/selenium-standalone-service": "^6.1.14",
-    "@wdio/sync": "^6.1.14",
-    "standard": "^14.3.1",
-    "tape": "^4.6.0"
+    "@wdio/cli": "6.10.5",
+    "@wdio/devtools-service": "6.10.5",
+    "@wdio/local-runner": "6.10.5",
+    "@wdio/mocha-framework": "6.10.4",
+    "@wdio/reporter": "6.8.1",
+    "@wdio/selenium-standalone-service": "6.10.4",
+    "@wdio/sync": "6.10.4",
+    "standard": "16.0.3",
+    "tape": "5.0.1"
   },
   "peerDependencies": {
     "@wdio/cli": "^5.0.0"
+  },
+  "scripts": {
+    "cleanup": "git reset --hard",
+    "lint": "standard lib/*.js test/**/*.js *.js",
+    "test": "wdio test/integration/wdio.conf.js"
   }
 }
