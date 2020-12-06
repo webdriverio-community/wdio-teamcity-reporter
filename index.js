@@ -170,8 +170,9 @@ class WdioTeamcityReporter extends WdioReporter {
   }
 
   _v () {
-    const { browserName, version } = this.runnerStat.capabilities
-    return `${browserName} ${version}`
+    // @see https://github.com/webdriverio/webdriverio/blob/v6.10.5/packages/webdriver/src/types.ts#L215
+    const { browserName, browserVersion, version } = this.runnerStat.capabilities
+    return `${browserName} ${browserVersion || version}`
   }
 }
 
