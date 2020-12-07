@@ -33,6 +33,21 @@ const assert = require('assert')
  * @property {string} [end]
  */
 
+/**
+ * @typedef {Object} HookStats
+ * @property {string} type
+ * @property {string} start
+ * @property {number} _duration
+ * @property {string} uid
+ * @property {string} cid
+ * @property {string} title
+ * @property {string} fullTitle
+ * @property {Array} output
+ * @property {any} argument
+ * @property {string} state
+ * @property {string} [end]
+ */
+
 class WdioTeamcityReporter extends WdioReporter {
   static escape (str) {
     if (!str) return ''
@@ -115,6 +130,15 @@ class WdioTeamcityReporter extends WdioReporter {
   }
 
   /**
+   * @param {HookStats} hookStats
+   */
+  onHookEnd (hookStats) {
+    if (hookStats.state === 'failed') {
+      this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', hookStats)
+    }
+  }
+
+  /**
    * @param {TestStats} testStats
    */
   onTestSkip (testStats) {
@@ -125,6 +149,15 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {SuiteStats} suiteStats
    */
   onSuiteEnd (suiteStats) {
+    const pendingTests = Object.values(suiteStats.tests).filter(test => test.state === 'pending')
+    pendingTests.forEach(testStat => {
+      testStat.error = testStat.error || {
+        message: 'Test is considered as failed, as it is still "pending" on suite end.',
+        stack: ''
+      }
+      this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', testStat)
+    })
+
     this._m('##teamcity[testSuiteFinished name=\'{name}\' flowId=\'{id}\']', suiteStats)
   }
 

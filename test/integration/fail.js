@@ -14,3 +14,14 @@ suite('simple exception', () => {
     assert.strictEqual(browser.$('body').getAttribute('non-existing-attribute'), null)
   })
 })
+
+suite('exception in hook', () => {
+  setup(() => {
+    browser.url('https://www.google.ru/')
+    assert.strictEqual(browser.$('body').getAttribute('non-existing-attribute'), null)
+  })
+
+  test('failed in setup-hook', () => {
+    assert.strictEqual(browser.$('body').getAttribute('non-existing-attribute'), null)
+  })
+})
