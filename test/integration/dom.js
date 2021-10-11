@@ -9,6 +9,9 @@ suite('simple assertions for the DOM', () => {
   })
 
   test('does body exists', () => {
-    assert.strictEqual(browser.$('body').getAttribute('class'), 'hp vasq')
+    const klass = browser.$('body').getAttribute('class')
+    // do simple assertions assuming that google generates class names
+    assert.strictEqual(typeof klass, 'string')
+    assert(klass.length > 0)
   })
 })

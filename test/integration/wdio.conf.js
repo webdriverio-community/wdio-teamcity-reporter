@@ -46,5 +46,8 @@ exports.config = {
     ui: 'tdd'
   },
 
+  // keep in mind that java runtime is required to make this one work.
+  // in case you have any trouble, try to follow install instructions
+  // from selenium-standalone package, see https://www.npmjs.com/package/selenium-standalone
   services: ['selenium-standalone']
 }
