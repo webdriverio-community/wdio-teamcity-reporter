@@ -1,4 +1,4 @@
-wdio-teamcity-reporter
+wdio-teamcity-reporter [![Test](https://github.com/webdriverio-community/wdio-teamcity-reporter/actions/workflows/test.yaml/badge.svg?branch=main)](https://github.com/webdriverio-community/wdio-teamcity-reporter/actions/workflows/test.yaml)
 ======================
 
 WebdriverIO Teamcity reporter which makes it possible to display test results in real-time, makes test information available on the Tests tab of the Build Results page.

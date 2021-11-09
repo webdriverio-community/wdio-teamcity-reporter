@@ -2,7 +2,7 @@ const assert = require('assert');
 
 suite('simple exception', () => {
   setup(async () => {
-    await browser.url('https://www.google.ru/');
+    await browser.url('http://guinea-pig.webdriver.io/');
   });
 
   test.skip('pending test', () => {});
@@ -14,7 +14,7 @@ suite('simple exception', () => {
 
 suite('exception in hook', () => {
   setup(async () => {
-    await browser.url('https://www.google.ru/');
+    await browser.url('http://guinea-pig.webdriver.io/');
     assert.strictEqual(await browser.$('body').getAttribute('non-existing-attribute'), null);
   });
 

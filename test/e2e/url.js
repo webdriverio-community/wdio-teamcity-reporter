@@ -2,10 +2,10 @@ const assert = require('assert');
 
 suite('simple assertions for the title', () => {
   setup(async () => {
-    await browser.url('https://www.google.ru/');
+    await browser.url('http://guinea-pig.webdriver.io/');
   });
 
   test('is url valid', async () => {
-    assert.strictEqual(await browser.getUrl(), 'https://www.google.ru/');
+    assert.strictEqual(await browser.getUrl(), 'http://guinea-pig.webdriver.io/');
   });
 });
