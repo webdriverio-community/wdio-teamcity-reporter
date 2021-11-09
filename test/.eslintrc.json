@@ -5,5 +5,5 @@
   "globals": {
     "browser": true
   },
-  "extends": "../../.eslintrc.json"
+  "extends": "../.eslintrc.json"
 }

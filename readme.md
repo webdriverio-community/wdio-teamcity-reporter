@@ -20,19 +20,21 @@ Add reporter in your [wdio.conf.js](http://webdriver.io/guide/testrunner/configu
 ```javascript
 exports.config = {
   // ...
-  reporters: ['teamcity'],
-  reporterOptions: {
-    captureStandardOutput: false, // optional
-    flowId: true, // optional
-    message: '[title]', // optional
-  },
+  reporters: [
+    [
+      'teamcity',
+      {
+        captureStandardOutput: false, // optional
+        flowId: true, // optional
+        message: '[title]', // optional
+      }
+    ]
+  ],
   // ...
 }
 ```
 
-### reporterOptions
-
-`reporterOptions` provide you a possibility to adjust reporter functionality.
+### Options
 
 - `captureStandardOutput (boolean)` — if `true`, all the standard output (and standard error) messages received between `testStarted` and `testFinished` messages will be considered test output. The default value is `false` and assumes usage of testStdOut and testStdErr service messages to report the test output. Default `false`.
 - `flowId (boolean)` — if `true`, `flowId` property will be added to all messages. Flow tracking is necessary for example to distinguish separate processes running in parallel. Default `true`.
