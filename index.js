@@ -149,11 +149,7 @@ class WdioTeamcityReporter extends WdioReporter {
   onSuiteEnd (suiteStats) {
     const pendingTests = Object.values(suiteStats.tests).filter(test => test.state === 'pending');
     pendingTests.forEach(testStat => {
-      testStat.error = testStat.error || {
-        message: 'Test is considered as failed, as it is still "pending" on suite end.',
-        stack: '',
-      };
-      this._m('##teamcity[testFailed name=\'{name}\' message=\'{error}\' details=\'{stack}\' flowId=\'{id}\']', testStat);
+      this._m('##teamcity[testIgnored name=\'{name}\' message=\'skipped\' flowId=\'{id}\']', testStat);
     });
 
     this._m('##teamcity[testSuiteFinished name=\'{name}\' flowId=\'{id}\']', suiteStats);
