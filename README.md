@@ -10,7 +10,7 @@ WebdriverIO Teamcity reporter which makes it possible to display test results in
 npm install wdio-teamcity-reporter --save-dev
 ```
 
-Instructions on how to install WebdriverIO can be found here: http://webdriver.io/guide/getstarted/install.html
+Instructions on how to install WebdriverIO can be found here: https://webdriver.io/docs/gettingstarted
 
 
 ## Configuration
