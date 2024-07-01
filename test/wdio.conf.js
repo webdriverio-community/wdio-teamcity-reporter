@@ -34,7 +34,5 @@ exports.config = {
     timeout: 60000,
     ui: 'tdd',
   },
-
-  services: ['selenium-standalone'],
 };
 
