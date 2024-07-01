@@ -1,6 +1,6 @@
 {
   "name": "wdio-teamcity-reporter",
-  "version": "3.1.1",
+  "version": "4.0.0",
   "description": "WebdriverIO Teamcity reporter",
   "main": "index.js",
   "engines": {
