@@ -1,5 +1,6 @@
 const WdioReporter = require('@wdio/reporter').default;
 const assert = require('assert');
+const path = require('node:path');
 
 /**
  * @typedef {Object} SuiteStats
@@ -87,13 +88,13 @@ class WdioTeamcityReporter extends WdioReporter {
 
     super(options);
     this.currentFile = null;
+    this.currentFileRelative = null;
   }
 
   /**
    * @param {SuiteStats} suiteStats
    */
   onSuiteStart(suiteStats) {
-
     this.currentFile = suiteStats.file;
     // Add locationHint to the testSuiteStarted message
     this._m('##teamcity[testSuiteStarted name=\'{name}\' locationHint=\'{location}\' flowId=\'{id}\']', suiteStats);
@@ -103,7 +104,6 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats} testStats
    */
   onTestStart(testStats) {
-
     // Use a generic {location} placeholder to handle encoding centrally in _m
     this._m('##teamcity[testStarted name=\'{name}\' locationHint=\'{location}\' captureStandardOutput=\'{capture}\' flowId=\'{id}\']', testStats);
   }
@@ -112,7 +112,6 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats} testStats
    */
   onTestEnd(testStats) {
-
     if (testStats.state === 'skipped') return;
     this._m('##teamcity[testFinished name=\'{name}\' duration=\'{ms}\' flowId=\'{id}\']', testStats);
   }
@@ -121,7 +120,6 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats} testStats
    */
   onTestFail(testStats) {
-
     const {escape, number} = WdioTeamcityReporter;
     const specFileRetryAttempts = number(this.runnerStat.config.specFileRetryAttempts, 0);
     const specFileRetries = number(this.runnerStat.config.specFileRetries, 0);
@@ -141,7 +139,6 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {HookStats} hookStats
    */
   onHookEnd(hookStats) {
-
     if (hookStats.state === 'failed') {
       const stackLocation = this._parseStack(hookStats.error.stack);
       const locationAttr = stackLocation ? `locationHint='file://${stackLocation}'` : '';
@@ -153,7 +150,6 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats} testStats
    */
   onTestSkip(testStats) {
-
     this._m('##teamcity[testIgnored name=\'{name}\' message=\'skipped\' flowId=\'{id}\']', testStats);
   }
 
@@ -161,7 +157,6 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {SuiteStats} suiteStats
    */
   onSuiteEnd(suiteStats) {
-
     const pendingTests = Object.values(this.suites[suiteStats.uid].tests).filter(test => test.state === 'pending');
     pendingTests.forEach(testStat => {
       this._m('##teamcity[testIgnored name=\'{name}\' message=\'skipped\' flowId=\'{id}\']', testStat);
@@ -192,12 +187,16 @@ class WdioTeamcityReporter extends WdioReporter {
       case '{ms}':
         return stats._duration;
       case '{location}': {
-        if (this.currentFile && stats.fullTitle) {
-          // URL-encode the fragment part of the URI to handle spaces and special chars
-          const encodedTitle = encodeURIComponent(stats.fullTitle);
-          return `wdio://${this.currentFile}#${encodedTitle}`;
+        if (this.currentFile) {
+          const relativeFilePath = path.relative(process.cwd(), this.currentFile);
+          if (stats.fullTitle) {
+            // URL-encode the fragment part of the URI to handle spaces and special chars
+            const encodedTitle = encodeURIComponent(stats.fullTitle);
+            return `wdio://${relativeFilePath}#${encodedTitle}`;
+          }
+          return `file://${relativeFilePath || ''}`; // Fallback
         }
-        return `file://${this.currentFile || ''}`; // Fallback
+        return '';
       }
       case '{name}': {
         let name = this.options.message;
