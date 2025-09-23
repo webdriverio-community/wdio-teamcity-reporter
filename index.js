@@ -104,6 +104,10 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats} testStats
    */
   onTestStart(testStats) {
+    if (testStats.retries > 0) {
+      // This is a retry. Mark the previous, failed attempt as 'failed' so that users can see that there are retries.
+      this._m('##teamcity[testIgnored name=\'{name}\' message=\'Failed and retried\' flowId=\'{id}\']', testStats);
+    }
     // Use a generic {location} placeholder to handle encoding centrally in _m
     this._m('##teamcity[testStarted name=\'{name}\' locationHint=\'{location}\' captureStandardOutput=\'{capture}\' flowId=\'{id}\']', testStats);
   }
