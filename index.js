@@ -88,7 +88,6 @@ class WdioTeamcityReporter extends WdioReporter {
 
     super(options);
     this.currentFile = null;
-    this.currentFileRelative = null;
   }
 
   /**
@@ -154,14 +153,14 @@ class WdioTeamcityReporter extends WdioReporter {
    * @param {TestStats} testStats
    */
   onTestSkip(testStats) {
-    this._m('##teamcity[testIgnored name=\'{name}\' message=\'skipped\' flowId=\'{id}\']', testStats);
+    this._m('##teamcity[testIgnored name=\'{name}\' message=\'skipped\' locationHint=\'{location}\' flowId=\'{id}\']', testStats);
   }
 
   /**
    * @param {SuiteStats} suiteStats
    */
   onSuiteEnd(suiteStats) {
-    const pendingTests = Object.values(this.suites[suiteStats.uid].tests).filter(test => test.state === 'pending');
+    const pendingTests = Object.values(this.tests).filter(test => test.state === 'pending');
     pendingTests.forEach(testStat => {
       this._m('##teamcity[testIgnored name=\'{name}\' message=\'skipped\' flowId=\'{id}\']', testStat);
     });
@@ -193,12 +192,20 @@ class WdioTeamcityReporter extends WdioReporter {
       case '{location}': {
         if (this.currentFile) {
           const relativeFilePath = path.relative(process.cwd(), this.currentFile);
-          if (stats.fullTitle) {
-            // URL-encode the fragment part of the URI to handle spaces and special chars
-            const encodedTitle = encodeURIComponent(stats.fullTitle);
-            return `wdio://${relativeFilePath}#${encodedTitle}`;
+          if (!relativeFilePath || relativeFilePath === '') {
+            return '';
           }
-          return `file://${relativeFilePath || ''}`; // Fallback
+          if (stats.title) {
+            // Get an ordered array of the location in the test suite tree of this test/suite
+            const testLocationArray = this._getTestLocationInSuite(stats);
+            // turn it into a querystring to encode
+            const searchParams = new URLSearchParams();
+            // ensuring that we pre-encode + characters to prevent ambiguity
+            testLocationArray.forEach(p => searchParams.append('locationInSuite', p.replace('+', '%2B')));
+            const pathAsQueryString = searchParams.toString();
+            return `wdio://${relativeFilePath}?${pathAsQueryString}`;
+          }
+          return `file://${relativeFilePath}`;
         }
         return '';
       }
@@ -238,6 +245,19 @@ class WdioTeamcityReporter extends WdioReporter {
     const {browserName, browserVersion, version} = this.runnerStat.capabilities;
     return `${browserName} ${browserVersion || version}`;
   }
+  _getTestLocationInSuite(stats) {
+    // this.currentSuites is an array of the active suites, already in hierarchical order.
+    // We just need to get their titles and filter out the internal '(root)' suite.
+    const suiteTitles = this.currentSuites
+      .map(suite => suite.title)
+      .filter(title => title!== '(root)');
+    // The full location is the list of suite titles plus the current test's title if there is one.
+    if (stats.type === 'test') {
+      return [...suiteTitles, stats.title];
+    }
+    return suiteTitles;
+  }
+
 }
 
 module.exports.default = WdioTeamcityReporter;

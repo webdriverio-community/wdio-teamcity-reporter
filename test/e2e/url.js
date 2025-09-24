@@ -6,6 +6,6 @@ suite('simple assertions for the title', () => {
   });
 
   test('is url valid', async () => {
-    assert.strictEqual(await browser.getUrl(), 'http://guinea-pig.webdriver.io/');
+    assert.strictEqual(await browser.getUrl(), 'https://guinea-pig.webdriver.io/');
   });
 });
