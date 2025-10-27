@@ -15,7 +15,7 @@ Instructions on how to install WebdriverIO can be found here: https://webdriver.
 
 ## Configuration
 
-Add reporter in your [wdio.conf.js](http://webdriver.io/guide/testrunner/configurationfile.html) file:
+Add reporter in your [wdio.conf.js](https://webdriver.io/docs/configurationfile/) file:
 
 ```javascript
 exports.config = {
