@@ -1,6 +1,11 @@
 wdio-teamcity-reporter [![Test](https://github.com/webdriverio-community/wdio-teamcity-reporter/actions/workflows/test.yaml/badge.svg?event=push)](https://github.com/webdriverio-community/wdio-teamcity-reporter/actions/workflows/test.yaml) ![npm](https://img.shields.io/npm/dm/wdio-teamcity-reporter)
 ======================
 
+> [!IMPORTANT]
+> **This repository does not support WebdriverIO v10.** It stays in maintenance mode for WebdriverIO v9 only.
+>
+> It gets no new features. Only critical fixes for WebdriverIO v9 are possible.
+
 WebdriverIO Teamcity reporter which makes it possible to display test results in real-time, makes test information available on the Tests tab of the Build Results page.
 
 
